@@ -17,7 +17,7 @@
                 <a href="#" class="p-3">Home</a>
             </li>
             <li>
-                <a href="#" class="p-3">Dashboard</a>
+                <a href="{{route('dashboard')}}" class="p-3">Dashboard</a>
             </li>
             <li>
                 <a href="#" class="p-3">Status</a>
@@ -29,12 +29,15 @@
                 <a href="#" class="p-3">Alif Maulana A</a>
             </li>
             <li>
-                <a href="#" class="p-3">Logout</a>
+                <form action="{{route('logout')}}" class="inline p-3" method="post">
+                    @csrf
+                    <button type="submit">Logout</button>
+                </form>
             </li>
             @endauth
             @guest
             <li>
-                <a href="#" class="p-3">Login</a>
+                <a href="{{route('login')}}" class="p-3">Login</a>
             </li>
             <li>
                 <a href="{{route('register')}}" class="p-3">Register</a>
