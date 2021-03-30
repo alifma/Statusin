@@ -26,19 +26,28 @@
                 {{$p->created_at->diffForHumans()}}</span>
             <p class="mb-2">
                 {{$p->body}}
-                <div class="flex item-center">
-                    @if (!$p->likedBy(auth()->user()))
-                    <form action="{{route('posts.like', $p->id)}}" method="post">
-                        @csrf
-                        <button type="submit" class="text-blue-500 mr-2">Like</button>
-                    </form>
-                    @else
-                    <form action="{{route('posts.like', $p)}}" method="post">
+                <div>
+                    <form action="{{route('posts.delete', $p)}}" method="post">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="text-blue-500 mr-2">Unlike</button>
+                        <button type="submit" class="text-blue-500 mr-2">Delete</button>
                     </form>
-                    @endif
+                </div>
+                <div class="flex item-center">
+                    @auth
+                        @if (!$p->likedBy(auth()->user()))
+                        <form action="{{route('posts.like', $p->id)}}" method="post">
+                            @csrf
+                            <button type="submit" class="text-blue-500 mr-2">Like</button>
+                        </form>
+                        @else
+                        <form action="{{route('posts.like', $p)}}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-blue-500 mr-2">Unlike</button>
+                        </form>
+                        @endif
+                    @endauth
                     {{$p->likes->count()}} {{Str::plural('like', $p->likes->count())}}
                 </div>
             </p>

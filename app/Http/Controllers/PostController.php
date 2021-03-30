@@ -7,11 +7,6 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware(['auth']);
-    }
     public function index() {
         $post = Post::orderBy('created_at', 'DESC')->with(['user', 'likes'])->paginate(10);
         return view('posts.index', [
@@ -26,6 +21,12 @@ class PostController extends Controller
 
         auth()->user()->posts()->create($request->only('body'));
 
+        return back();
+    }
+
+
+    public function destroy(Post $post) {
+        $post->delete();
         return back();
     }
 }
