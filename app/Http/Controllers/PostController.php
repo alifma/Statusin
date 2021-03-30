@@ -13,7 +13,7 @@ class PostController extends Controller
         $this->middleware(['auth']);
     }
     public function index() {
-        $post = Post::get();
+        $post = Post::paginate(100);
         return view('posts.index', [
             'posts' => $post
         ]);
