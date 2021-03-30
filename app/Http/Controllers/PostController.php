@@ -13,7 +13,7 @@ class PostController extends Controller
         $this->middleware(['auth']);
     }
     public function index() {
-        $post = Post::paginate(10);
+        $post = Post::orderBy('created_at', 'DESC')->paginate(10);
         return view('posts.index', [
             'posts' => $post
         ]);
