@@ -29,6 +29,7 @@
             </p>
         </div>
         @endforeach
+        {{$posts->links()}}
         @else
         <h1 class="text-center mb-4">No Data</h1>
         @endif
