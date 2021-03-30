@@ -25,42 +25,12 @@
             <h1 class="text-center text-xl py-3 font-bold"> Register Right Now And Send Your Message at <span class="text-yellow-500">Statusin</span>!</h1>
         @endguest
         @if($posts->count())
-        @foreach ($posts as $p)
-        <div class="mb-4">
-            <a href="#" class="font-bold">{{$p->user->name}}</a><span class="ml-3 text-gray text-sm">
-                {{$p->created_at->diffForHumans()}}</span>
-            <p class="mb-2">
-                {{$p->body}}
-                @can('delete', $p)
-                <form action="{{route('posts.delete', $p)}}" method="post">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="text-blue-500 mr-2">Delete</button>
-                </form>
-                @endcan
-                <div class="flex item-center">
-                    @auth
-                    @if (!$p->likedBy(auth()->user()))
-                    <form action="{{route('posts.like', $p->id)}}" method="post">
-                        @csrf
-                        <button type="submit" class="text-blue-500 mr-2">Like</button>
-                    </form>
-                    @else
-                    <form action="{{route('posts.like', $p)}}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="text-blue-500 mr-2">Unlike</button>
-                    </form>
-                    @endif
-                    @endauth
-                    {{$p->likes->count()}} {{Str::plural('like', $p->likes->count())}}
-                </div>
-            </p>
-        </div>
+        @foreach ($posts as $post)
+        <x-posts :post="$post"/>
         @endforeach
         {{$posts->links()}}
         @else
-        <h1 class="text-center mb-4">No Data</h1>
+        <h1 class="text-center text-2xl mb-4">No Data</h1>
         @endif
     </div>
 </div>
