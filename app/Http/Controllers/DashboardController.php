@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\PostLiked;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class DashboardController extends Controller
 {
@@ -12,7 +14,6 @@ class DashboardController extends Controller
         $this->middleware(['auth']);
     }
     public function index() {
-        // dd(auth()->user()->posts);
         return view('dashboard.index');
     }
 }
