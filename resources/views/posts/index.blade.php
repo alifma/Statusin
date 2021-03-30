@@ -2,8 +2,7 @@
 @section('content')
     <div class="flex justify-center">
         <div class="w-8/12 bg-white p-6 rounded-lg">
-            <form action="{{route('posts')}}" method="post">
-
+            <form action="{{route('posts')}}" method="post" class="mb-4">
                 @csrf
                 <div class="mb-4">
                     <label for="body" class="sr-only">Body</label>
@@ -19,6 +18,17 @@
                     <input type="submit" class="bg-green-500 text-white px-4 py-2 rounded font-medium" value="Post">
                 </div>
             </form>
+
+            @forelse ($posts as $p)
+            <div class="mb-4">
+                <a href="#" class="font-bold">{{$p->user->name}}</a><span class="ml-3 text-gray text-sm"> {{$p->created_at->diffForHumans()}}</span>
+                <p class="mb-2">
+                    {{$p->body}}
+                </p>
+            </div>
+            @empty
+            <h1 class="text-center">No Data</h1>
+            @endforelse
         </div>
     </div>
 @endsection
